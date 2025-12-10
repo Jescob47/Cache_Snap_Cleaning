@@ -45,20 +45,15 @@ Sigue estos pasos desde tu sesión SSH en el servidor.
 1. Conectarte al servidor EC2
 ssh -i /ruta/tu-llave.pem ubuntu@<PUBLIC_IP>
 
-2. Crear el directorio donde vivirán los scripts
-sudo mkdir -p /home/ubuntu/maintenance
-sudo chown ubuntu:ubuntu /home/ubuntu/maintenance
-
-3. Clonar el repositorio de GitHub
+2. Clonar el repositorio de GitHub
 git clone https://github.com/Jescob47/Cache_Snap_Cleaning.git
 
-4. Dar permisos de ejecución
-sudo chmod 750 /home/ubuntu/maintenance/cache_cleaning.sh
-sudo chmod 750 /home/ubuntu/maintenance/snap_cleanup.sh
+3. Dar permisos de ejecución
+sudo chmod +x cache_cleaning.sh snap_cleanup.sh
 
-5. Probar los scripts manualmente
-sudo /home/ubuntu/maintenance/snap_cleanup.sh
-sudo /home/ubuntu/maintenance/cache_cleaning.sh
+4. Probar los scripts manualmente
+sudo /home/ubuntu/Cache_Snap_Cleaning/snap_cleanup.sh
+sudo /home/ubuntu/Cache_Snap_Cleaning/cache_cleaning.sh
 
 ⏱️ Programar ejecución automática (cron)
 
@@ -70,10 +65,10 @@ sudo crontab -e
 Agregar:
 
 # Limpieza de snaps — día 1 de cada mes a las 3:00 AM
-0 3 1 * * /home/ubuntu/maintenance/snap_cleanup.sh >> /home/ubuntu/maintenance/snap_cleanup.log 2>&1
+0 3 1 * * /home/ubuntu/Cache_Snap_Cleaning/snap_cleanup.sh >> /home/ubuntu/Cache_Snap_Cleaning/snap_cleanup.log 2>&1
 
 # Limpieza general — día 1 de cada mes a las 4:00 AM
-0 4 1 * * /home/ubuntu/maintenance/cache_cleaning.sh >>/home/ubuntu/maintenance/cache_cleaning.log 2>&1
+0 4 1 * * /home/ubuntu/Cache_Snap_Cleaning/cache_cleaning.sh >>/home/ubuntu/Cache_Snap_Cleaning/cache_cleaning.log 2>&1
 
 
 Esto:
