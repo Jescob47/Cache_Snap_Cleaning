@@ -49,7 +49,7 @@ ssh -i /ruta/tu-llave.pem ubuntu@<PUBLIC_IP>
 git clone https://github.com/Jescob47/Cache_Snap_Cleaning.git
 
 3. Dar permisos de ejecución
-sudo chmod +x cache_cleaning.sh snap_cleanup.sh
+sudo chmod +x /home/ubuntu/Cache_Snap_Cleaning/cache_cleaning.sh /home/ubuntu/Cache_Snap_Cleaning/snap_cleanup.sh
 
 4. Probar los scripts manualmente
 sudo /home/ubuntu/Cache_Snap_Cleaning/snap_cleanup.sh
