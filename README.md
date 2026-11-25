@@ -6,15 +6,20 @@ Este repositorio contiene dos scripts diseñados para realizar mantenimiento aut
 📌 Scripts incluidos
 cache_cleaning.sh
 
-Realiza tareas de mantenimiento general, como:
+Realiza tareas de mantenimiento general sin tocar lo que usan los programas en marcha:
 
-Limpieza de cachés del sistema (apt).
+Deja el journal de systemd en los últimos 100 MB.
 
-Eliminación de archivos temporales.
+Limpia la caché de apt (los .deb descargados) y quita los paquetes que ya nada necesita.
 
-Reducción del tamaño de logs grandes.
+Borra de /tmp solo los archivos que nadie tocó en 7 días o más.
 
-Remoción de paquetes obsoletos.
+🐞 Corrección del 2026-11-25: la versión anterior (1) pasaba la versión en lugar del nombre al borrar snaps (`snap "3.3.5226.0" is not installed`), así que nunca borraba nada; eso lo hace `snap_cleanup.sh`, (2) vaciaba `/var/log/syslog` y `kern.log`, borrando el historial, y (3) hacía `rm -rf /tmp/*`, que borra archivos en uso. Las tres cosas se quitaron.
+
+| EC2 | Script | Cron (usuario `ubuntu`) | Log |
+|---|---|---|---|
+| `web-app` | `/home/ubuntu/maintenance/cache_cleaning.sh` | `0 3 1 * *` | `/home/ubuntu/maintenance/cache_cleaning.log` |
+| `NNC automations 1` | `/home/ubuntu/cache_cleaning.sh` | `0 0 1 * *`, envuelto en `cronwrap.sh` | `/home/ubuntu/cache_cleaning.log` |
 
 Este script está pensado para uso manual o ejecución mensual. Algunas tareas pueden afectar rendimiento si se ejecutan demasiado seguido.
 
